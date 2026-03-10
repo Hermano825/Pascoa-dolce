@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Produto - Dolce Divino</title>
+
+    <link rel="icon" type="image/png" href="./assets/images/logo.webp">
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1903050763983703');
+    fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Code -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body class="font-sans text-gray-800 bg-stone-50">
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1903050763983703&ev=PageView&noscript=1"
+    /></noscript>
+
+    <!-- NAV BAR -->
+    <nav class="fixed w-full z-50 bg-gradient-to-r from-rose-50 via-white to-rose-50 shadow-2xl backdrop-blur-sm border-b-2 border-rose-100">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="./assets/images/logo.webp" alt="Dolce Divino" class="h-16 md:h-20 w-auto nav-logo">
+            </a>
+            <div class="hidden md:flex gap-6 font-medium text-rose-900">
+                <a href="index.html#home" class="hover:text-rose-700 transition font-semibold">Início</a>
+                <a href="index.html#produtos" class="hover:text-rose-700 transition font-semibold">Cardápio</a>
+                <a href="index.html#sobre" class="hover:text-rose-700 transition font-semibold">Sobre</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="relative cursor-pointer hover:scale-110 transition p-2 min-w-[44px] min-h-[44px] flex items-center justify-center" onclick="toggleCartModal()">
+                    <i data-lucide="shopping-bag" class="text-rose-800" width="24" height="24"></i>
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-rose-700 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center opacity-0 transition-opacity duration-300">0</span>
+                </div>
+                <button class="md:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-rose-100 rounded-lg transition text-rose-900" onclick="toggleMenu()">
+                    <i data-lucide="menu" width="24" height="24"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-rose-50 p-4 absolute w-full shadow-xl border-b-2 border-rose-100">
+            <div class="flex flex-col gap-4 text-center text-rose-900 font-semibold">
+                <a href="index.html#home" onclick="toggleMenu()" class="py-2 border-b border-rose-100 hover:text-rose-700">Início</a>
+                <a href="index.html#produtos" onclick="toggleMenu()" class="py-2 border-b border-rose-100 hover:text-rose-700">Produtos</a>
+                <a href="index.html#sobre" onclick="toggleMenu()" class="py-2 hover:text-rose-700">Sobre</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MODAL DO CARRINHO -->
+    <div id="cart-modal" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleCartModal()"></div>
+        <div class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col overflow-hidden transform transition-transform duration-300 translate-x-full" id="cart-panel">
+            <div class="p-4 bg-gradient-to-r from-rose-800 to-rose-700 text-white shadow-md sticky top-0 z-10">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold flex items-center gap-2"><i data-lucide="shopping-cart"></i> Seu Pedido</h2>
+                    <button onclick="toggleCartModal()" class="hover:text-rose-200 transition"><i data-lucide="x"></i></button>
+                </div>
+                <div class="mt-3 flex gap-2">
+                    <button id="tab-carrinho" onclick="switchCartTab('carrinho')" class="px-3 py-2 rounded-md bg-white/15 text-white font-semibold border border-white/20">Carrinho</button>
+                    <button id="tab-dados" onclick="switchCartTab('dados')" class="px-3 py-2 rounded-md bg-white/5 hover:bg-white/10 text-white font-semibold border border-white/10">Informações da Entrega</button>
+                </div>
+            </div>
+            <div id="cart-section-carrinho" class="flex-1 overflow-y-auto p-4 cart-scroll space-y-4">
+                <div id="cart-items" class="space-y-4">
+                    <div class="text-center text-gray-500 mt-10">Seu carrinho está vazio 🐣</div>
+                </div>
+                <div class="p-4 border-t mt-4">
+                    <div class="flex justify-between items-center text-lg font-bold text-gray-800">
+                        <span>Total:</span>
+                        <span id="cart-total" class="text-rose-800">R$ 0,00</span>
+                    </div>
+                    <div class="mt-4">
+                        <button onclick="switchCartTab('dados')" class="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-3 min-h-[48px] rounded-lg shadow-xl transition-all flex justify-center items-center gap-2">
+                            Prosseguir com o Pedido <i data-lucide="arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="cart-section-dados" class="p-0 bg-gray-50 border-t border-gray-200 hidden grid grid-rows-[1fr_auto] flex-1 min-h-0 overflow-hidden">
+                <div id="checkout-form" class="space-y-3 p-6 overflow-y-auto min-h-0 overscroll-contain" style="-webkit-overflow-scrolling: touch;">
+                    <input id="client-name" type="text" placeholder="Nome completo*" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm" />
+                    <input id="client-cpf" type="text" placeholder="CPF*" maxlength="14" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm" />
+                    <input id="client-phone" type="text" placeholder="Telefone*" maxlength="15" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm" />
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <input id="client-cep" type="text" placeholder="CEP*" maxlength="9" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm" />
+                        <input id="client-city" type="text" placeholder="Cidade" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm" />
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                        <input id="client-bairro" type="text" placeholder="Bairro*" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm" />
+                        <input id="client-rua" type="text" placeholder="Rua*" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm" />
+                        <input id="client-numero" type="text" placeholder="Número*" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm" />
+                        <input id="client-complemento" type="text" placeholder="Complemento (opcional)" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm" />
+                    </div>
+                    <textarea id="client-notes" rows="2" placeholder="Observações do pedido (alergias/instruções especiais)" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm"></textarea>
+                    <p class="text-[11px] text-gray-500">Os dados são enviados apenas para agilizar o atendimento via WhatsApp.</p>
+                    <p id="checkout-error" class="hidden text-red-600 text-xs font-semibold"></p>
+                </div>
+                <div class="p-6 border-t bg-white">
+                    <div class="flex justify-between items-center mb-4 text-lg font-bold text-gray-800">
+                        <span>Total do Pedido:</span>
+                        <span id="cart-total-dados" class="text-rose-800">R$ 0,00</span>
+                    </div>
+                    <button onclick="finalizarCompra()" class="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-3 min-h-[48px] rounded-lg shadow-xl transition-all flex justify-center items-center gap-2">
+                        Finalizar Compra <i data-lucide="check"></i>
+                    </button>
+                    <p class="text-xs text-center text-gray-500 mt-3 flex justify-center items-center gap-1">
+                        <i data-lucide="lock" size="12"></i> Pagamento 100% Seguro
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETALHE DO PRODUTO -->
+    <section class="pt-32 pb-16 px-4 container mx-auto">
+        <!-- Breadcrumb -->
+        <div class="mb-8 flex items-center gap-2 text-sm text-gray-600">
+            <a href="index.html" class="hover:text-rose-700 transition">Início</a>
+            <i data-lucide="chevron-right" width="16"></i>
+            <a href="index.html#produtos" class="hover:text-rose-700 transition">Produtos</a>
+            <i data-lucide="chevron-right" width="16"></i>
+            <span class="text-rose-900 font-semibold" id="breadcrumb-name">Produto</span>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 mb-16">
+            <!-- Galeria -->
+            <div>
+                <div class="bg-stone-100 rounded-2xl shadow-2xl overflow-hidden mb-4 border-2 border-rose-100 md:w-4/5 mx-auto">
+                    <img id="main-image" src="" alt="Produto" class="w-full aspect-[4/5] object-cover cursor-zoom-in" onclick="openZoom()">
+                </div>
+                <div id="thumbnails" class="grid grid-cols-4 gap-3"></div>
+            </div>
+
+            <!-- Informações -->
+            <div class="flex flex-col">
+                <div class="mb-2">
+                    <span id="product-category" class="inline-block bg-rose-100 text-rose-900 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Categoria</span>
+                </div>
+                <h1 id="product-name" class="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">Nome do Produto</h1>
+
+                <!-- Variantes -->
+                <div id="variant-selector" class="mb-6 hidden">
+                    <h3 class="text-sm font-bold text-gray-700 mb-3">Escolha o tamanho:</h3>
+                    <div id="variant-options" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <div class="mb-6">
+                    <span class="text-4xl font-bold text-rose-900" id="product-price">R$ 0,00</span>
+                </div>
+
+                <div class="mb-8 pb-8 border-b border-gray-200">
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">Descrição</h3>
+                    <p id="product-description" class="text-gray-700 leading-relaxed text-lg">Descrição do produto</p>
+                </div>
+
+                <div class="mb-8 pb-8 border-b border-gray-200">
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">Detalhes</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle" class="text-green-600 mt-1 shrink-0" width="20"></i>
+                            <span>Produto artesanal feito com ingredientes selecionados</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle" class="text-green-600 mt-1 shrink-0" width="20"></i>
+                            <span>Embalagem especial para presente</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="truck" class="text-rose-700 mt-1 shrink-0" width="20"></i>
+                            <span>Entrega em toda a região</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Quantidade + Adicionar -->
+                <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                    <div class="flex items-center border-2 border-gray-300 rounded-lg overflow-hidden">
+                        <button onclick="decreaseQty()" class="px-4 py-3 bg-gray-100 hover:bg-gray-200 transition text-gray-700 font-bold">
+                            <i data-lucide="minus" width="20"></i>
+                        </button>
+                        <input type="number" id="quantity" value="1" min="1" class="w-20 text-center py-3 border-none outline-none font-bold text-lg" readonly>
+                        <button onclick="increaseQty()" class="px-4 py-3 bg-gray-100 hover:bg-gray-200 transition text-gray-700 font-bold">
+                            <i data-lucide="plus" width="20"></i>
+                        </button>
+                    </div>
+                    <button onclick="addToCartFromDetail()" class="flex-1 bg-gradient-to-r from-rose-700 to-rose-800 hover:from-rose-800 hover:to-rose-900 text-white font-bold py-4 px-8 rounded-lg shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-cart" width="20"></i>
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+
+                <button onclick="window.location.href='index.html#produtos'" class="w-full border-2 border-rose-700 text-rose-700 hover:bg-rose-50 font-semibold py-3 px-8 rounded-lg transition flex items-center justify-center gap-2">
+                    <i data-lucide="arrow-left" width="20"></i>
+                    Continuar Comprando
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Zoom -->
+    <div id="zoom-modal" class="fixed inset-0 z-[70] hidden bg-black/90 flex items-center justify-center" onclick="closeZoom()">
+        <img id="zoom-image" src="" alt="Zoom" class="max-w-full max-h-full object-contain p-4">
+        <button onclick="closeZoom()" class="absolute top-4 right-4 text-white hover:text-rose-300 transition">
+            <i data-lucide="x" width="32" height="32"></i>
+        </button>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contato" class="bg-gradient-to-b from-stone-800 to-stone-950 text-stone-100 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="mb-4">
+                        <img src="./assets/images/logo.webp" alt="Dolce Divino" class="h-20 w-auto">
+                    </div>
+                    <p class="text-sm text-stone-300">Transformando açúcar em afeto desde 2016.</p>
+                </div>
+                <div>
+                    <h4 class="text-rose-300 font-bold mb-4">Contato</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="phone" size="16"></i>
+                            <a href="https://wa.me/5585988884717" target="_blank" rel="noopener" class="hover:underline">(85) 98888-4717</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="instagram" size="16"></i>
+                            <a href="https://instagram.com/dolce.divino" target="_blank" rel="noopener" class="hover:underline">@dolce.divino</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-rose-300 font-bold mb-4">Dúvidas?</h4>
+                    <button onclick="window.open('https://wa.me/5585988884717', '_blank')" class="text-rose-300 hover:text-rose-200 underline">Fale conosco no WhatsApp</button>
+                </div>
+            </div>
+            <div class="border-t border-stone-700 pt-8 text-center text-sm text-stone-400">
+                <p>&copy; 2026 Dolce Divino. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./assets/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProduct();
+            updateCartUI();
+            lucide.createIcons();
+        });
+
+        function loadProduct() {
+            const params = new URLSearchParams(window.location.search);
+            const productId = parseInt(params.get('id'));
+            if (!productId) { window.location.href = 'index.html'; return; }
+
+            const product = products.find(p => p.id === productId);
+            if (!product) { window.location.href = 'index.html'; return; }
+
+            document.getElementById('page-title').textContent = `${product.name} - Dolce Divino | Páscoa`;
+            document.getElementById('breadcrumb-name').textContent = product.name;
+            document.getElementById('product-name').textContent = product.name;
+            document.getElementById('product-category').textContent = product.category;
+            document.getElementById('product-price').textContent = `R$ ${product.price.toFixed(2)}`;
+            document.getElementById('product-description').textContent = product.description;
+
+            // ViewContent Pixel
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'ViewContent', { content_name: product.name, content_ids: [product.id], content_type: 'product', value: product.price, currency: 'BRL' });
+            }
+
+            // Variantes
+            if (product.variants && product.variants.length > 0) {
+                document.getElementById('variant-selector').classList.remove('hidden');
+                document.getElementById('variant-options').innerHTML = product.variants.map((v, i) => `
+                    <button onclick="selectVariant(${i})" data-variant-idx="${i}"
+                        class="variant-btn px-4 py-2 border-2 rounded-lg font-semibold transition ${i === 0 ? 'border-rose-700 bg-rose-50 text-rose-900' : 'border-gray-300 text-gray-700 hover:border-rose-600'}">
+                        ${v.size}
+                    </button>`).join('');
+                window.selectedVariantIndex = 0;
+                document.getElementById('product-price').textContent = `R$ ${product.variants[0].price.toFixed(2)}`;
+            } else {
+                window.selectedVariantIndex = null;
+            }
+
+            // Galeria
+            const enc = p => p.replace(/ /g, '%20');
+            const images = product.images || [product.image];
+            document.getElementById('main-image').src = enc(images[0]);
+            document.getElementById('main-image').alt = product.name;
+
+            document.getElementById('thumbnails').innerHTML = images.map((img, i) => `
+                <button onclick="changeMainImage('${enc(img)}')" class="bg-white rounded-lg overflow-hidden border-2 border-transparent hover:border-rose-600 transition shadow-md hover:shadow-xl">
+                    <img src="${enc(img)}" alt="${product.name} ${i + 1}" class="w-full h-24 object-cover">
+                </button>`).join('');
+
+            window.currentProduct = product;
+            window.currentImages = images;
+        }
+
+        function selectVariant(index) {
+            const product = window.currentProduct;
+            if (!product?.variants) return;
+            window.selectedVariantIndex = index;
+            const variant = product.variants[index];
+            document.getElementById('product-price').textContent = `R$ ${variant.price.toFixed(2)}`;
+            document.querySelectorAll('.variant-btn').forEach((btn, i) => {
+                btn.classList.toggle('border-rose-700', i === index);
+                btn.classList.toggle('bg-rose-50', i === index);
+                btn.classList.toggle('text-rose-900', i === index);
+                btn.classList.toggle('border-gray-300', i !== index);
+                btn.classList.toggle('text-gray-700', i !== index);
+            });
+        }
+
+        function changeMainImage(src) {
+            document.getElementById('main-image').src = src;
+            document.getElementById('zoom-image').src = src;
+        }
+
+        function openZoom() {
+            const mainSrc = document.getElementById('main-image').src;
+            document.getElementById('zoom-image').src = mainSrc;
+            document.getElementById('zoom-modal').classList.remove('hidden');
+        }
+
+        function closeZoom() {
+            document.getElementById('zoom-modal').classList.add('hidden');
+        }
+
+        function increaseQty() {
+            const q = document.getElementById('quantity');
+            q.value = parseInt(q.value) + 1;
+        }
+
+        function decreaseQty() {
+            const q = document.getElementById('quantity');
+            if (parseInt(q.value) > 1) q.value = parseInt(q.value) - 1;
+        }
+
+        function addToCartFromDetail() {
+            const product = window.currentProduct;
+            if (!product) return;
+            const qty = parseInt(document.getElementById('quantity').value) || 1;
+
+            let itemToAdd = { ...product };
+
+            if (window.selectedVariantIndex !== null && window.selectedVariantIndex !== undefined && product.variants) {
+                const variant = product.variants[window.selectedVariantIndex];
+                itemToAdd.price = variant.price;
+                itemToAdd.variantLabel = variant.size;
+            }
+
+            const groupKey = itemToAdd.variantLabel ? `${itemToAdd.id}-${itemToAdd.variantLabel}` : `${itemToAdd.id}`;
+            for (let i = 0; i < qty; i++) cart.push({ ...itemToAdd });
+            if (!cartOrder.includes(groupKey)) { cartOrder.push(groupKey); saveCartOrder(); }
+            saveCart();
+
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'AddToCart', { content_name: product.name, content_ids: [product.id], content_type: 'product', value: itemToAdd.price * qty, currency: 'BRL' });
+            }
+
+            updateCartUI();
+            toggleCartModal();
+        }
+    </script>
+</body>
+</html>

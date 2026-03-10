@@ -1,0 +1,12 @@
+# Sistema
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Backups e temporários
+backup/
+*.tmp
+*.bak
+
+# Node (caso venha a usar)
+node_modules/
