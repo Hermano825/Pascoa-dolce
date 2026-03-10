@@ -11,11 +11,11 @@ const products = [
         description: "Ovo ao leite com moedas de chocolate dentro. 150g",
         price: 89.90,
         category: "Ovos de Páscoa",
-        image: "./assets/images/produtos/Ovos de páscoa/Ovo lata ao leite2.JPG",
+        image: "./assets/images/produtos/Ovos de páscoa/Ovo lata ao leite2.webp",
         images: [
-            "./assets/images/produtos/Ovos de páscoa/Ovo lata ao leite2.JPG",
-            "./assets/images/produtos/Ovos de páscoa/Ovo lata ao leite1.JPG",
-            "./assets/images/produtos/Ovos de páscoa/Ovo lata ao leite3.JPG"
+            "./assets/images/produtos/Ovos de páscoa/Ovo lata ao leite2.webp",
+            "./assets/images/produtos/Ovos de páscoa/Ovo lata ao leite1.webp",
+            "./assets/images/produtos/Ovos de páscoa/Ovo lata ao leite3.webp"
         ],
         checkoutId: "ID_PASCOA_01"
     },
@@ -25,9 +25,9 @@ const products = [
         description: "Ovo de colher recheado com doce de leite, fruta seca damasco e chocolate branco. Finalizado com três damascos. 200g",
         price: 89.90,
         category: "Ovos de Páscoa",
-        image: "./assets/images/produtos/Ovos de páscoa/Ovo de damasco.JPG",
+        image: "./assets/images/produtos/Ovos de páscoa/Ovo de damasco.webp",
         images: [
-            "./assets/images/produtos/Ovos de páscoa/Ovo de damasco.JPG"
+            "./assets/images/produtos/Ovos de páscoa/Ovo de damasco.webp"
         ],
         checkoutId: "ID_PASCOA_02"
     },
@@ -37,9 +37,9 @@ const products = [
         description: "Ovo de colher recheado com nutella, brownie, ninho e crocante de chocolate. 160g",
         price: 69.90,
         category: "Ovos de Páscoa",
-        image: "./assets/images/produtos/Ovos de páscoa/Ovo ninho com nutella.JPG",
+        image: "./assets/images/produtos/Ovos de páscoa/Ovo ninho com nutella.webp",
         images: [
-            "./assets/images/produtos/Ovos de páscoa/Ovo ninho com nutella.JPG"
+            "./assets/images/produtos/Ovos de páscoa/Ovo ninho com nutella.webp"
         ],
         checkoutId: "ID_PASCOA_03"
     },
@@ -49,9 +49,9 @@ const products = [
         description: "Ovo de colher recheado com chocolate, flocos de arroz, chocolate branco, gotas de oreo e finalizado com três trufas flocadas. 230g",
         price: 99.90,
         category: "Ovos de Páscoa",
-        image: "./assets/images/produtos/Ovos de páscoa/Ovo trufa flocada.JPG",
+        image: "./assets/images/produtos/Ovos de páscoa/Ovo trufa flocada.webp",
         images: [
-            "./assets/images/produtos/Ovos de páscoa/Ovo trufa flocada.JPG"
+            "./assets/images/produtos/Ovos de páscoa/Ovo trufa flocada.webp"
         ],
         checkoutId: "ID_PASCOA_04"
     },
@@ -61,9 +61,9 @@ const products = [
         description: "Ovo de colher recheado com doce de leite, geleia de morango e chocolate. Finalizado com três morangos divinos. 270g",
         price: 89.90,
         category: "Ovos de Páscoa",
-        image: "./assets/images/produtos/Ovos de páscoa/Ovo morango divino.JPG",
+        image: "./assets/images/produtos/Ovos de páscoa/Ovo morango divino.webp",
         images: [
-            "./assets/images/produtos/Ovos de páscoa/Ovo morango divino.JPG"
+            "./assets/images/produtos/Ovos de páscoa/Ovo morango divino.webp"
         ],
         checkoutId: "ID_PASCOA_05"
     }
