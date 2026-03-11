@@ -155,6 +155,101 @@ const products = [
         image: "./assets/images/produtos/kits/Cesta de Páscoa.webp",
         images: ["./assets/images/produtos/kits/Cesta de Páscoa.webp"],
         checkoutId: "ID_KIT_01"
+    },
+    {
+        id: 12,
+        name: "Waffles Divinos",
+        description: "Biscoito waffle com cobertura de chocolate.",
+        price: 39.90,
+        category: "Lembrancinhas",
+        image: "",
+        images: [],
+        checkoutId: "ID_LEMB_01"
+    },
+    {
+        id: 13,
+        name: "Coelho de Chocolate",
+        description: "Coelho de 70g recheado com brownie, nutella e chocolate ao leite.",
+        price: 89.90,
+        category: "Lembrancinhas",
+        image: "",
+        images: [],
+        checkoutId: "ID_LEMB_02"
+    },
+    {
+        id: 14,
+        name: "Morangos Páscoa",
+        description: "Morangos especiais de Páscoa, disponíveis em caixas de 4, 6 ou 10 unidades.",
+        price: 75.00,
+        category: "Lembrancinhas",
+        image: "",
+        images: [],
+        variants: [
+            { size: "Caixa com 4 unidades", price: 75.00 },
+            { size: "Caixa com 6 unidades", price: 110.00 },
+            { size: "Caixa com 10 unidades", price: 185.00 }
+        ],
+        checkoutId: "ID_LEMB_03"
+    },
+    {
+        id: 15,
+        name: "Pirulito de Páscoa",
+        description: "Pirulito artesanal de Páscoa.",
+        price: 25.00,
+        category: "Lembrancinhas",
+        image: "",
+        images: [],
+        checkoutId: "ID_LEMB_04"
+    },
+    {
+        id: 16,
+        name: "Cupcake de Páscoa",
+        description: "Cupcake de Páscoa com recheio de doce de leite.",
+        price: 24.90,
+        category: "Lembrancinhas",
+        image: "",
+        images: [],
+        checkoutId: "ID_LEMB_05"
+    },
+    {
+        id: 17,
+        name: "Castanha Drageada",
+        description: "Castanha drageada com chocolate 70%.",
+        price: 44.90,
+        category: "Lembrancinhas",
+        image: "",
+        images: [],
+        checkoutId: "ID_LEMB_06"
+    },
+    {
+        id: 18,
+        name: "Castanha Caramelizada",
+        description: "Castanha caramelizada artesanal.",
+        price: 29.90,
+        category: "Lembrancinhas",
+        image: "",
+        images: [],
+        checkoutId: "ID_LEMB_07"
+    },
+    {
+        id: 19,
+        name: "Amêndoa Drageada",
+        description: "Amêndoa drageada com chocolate 70%.",
+        price: 44.90,
+        category: "Lembrancinhas",
+        image: "",
+        images: [],
+        checkoutId: "ID_LEMB_08"
+    },
+    {
+        id: 20,
+        name: "Banana Drageada",
+        description: "Banana drageada com chocolate 70%.",
+        price: 39.90,
+        category: "Lembrancinhas",
+        image: "",
+        images: [],
+        checkoutId: "ID_LEMB_09"
     }
     // Novos produtos serão adicionados aqui
 ];
