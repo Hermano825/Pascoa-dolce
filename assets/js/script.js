@@ -152,8 +152,8 @@ const products = [
         description: "Cesta com suspiro, biscoito Petit Four, Marshmallow, castanha caramelizada, amêndoa drageada, banana drageada de chocolate, pipoca gourmet de ninho e pipoca gourmet ninho com Nutella.",
         price: 289.90,
         category: "Kits",
-        image: "./assets/images/produtos/Kits/Cesta de Páscoa.webp",
-        images: ["./assets/images/produtos/Kits/Cesta de Páscoa.webp"],
+        image: "./assets/images/produtos/kits/Cesta de Páscoa.webp",
+        images: ["./assets/images/produtos/kits/Cesta de Páscoa.webp"],
         checkoutId: "ID_KIT_01"
     }
     // Novos produtos serão adicionados aqui
