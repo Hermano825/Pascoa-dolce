@@ -279,6 +279,10 @@ document.addEventListener('DOMContentLoaded', () => {
 let filteredProducts = [...products];
 let activeCategory = 'all';
 
+function encodeImgPath(path) {
+    return path.split('/').map(seg => encodeURIComponent(seg).replace(/'/g, '%27')).join('/');
+}
+
 function renderProducts(productsToRender = filteredProducts) {
     const grid = document.getElementById('products-grid');
     if (!grid) return;
@@ -303,7 +307,7 @@ function renderProducts(productsToRender = filteredProducts) {
         <div class="product-card bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col h-full border border-stone-100 cursor-pointer group" onclick="viewProduct(${product.id})">
             <div class="relative w-full aspect-[4/5] overflow-hidden rounded-t-xl shrink-0 bg-stone-100">
                 <div class="absolute inset-0 animate-pulse bg-stone-200 skeleton" aria-hidden="true"></div>
-                <img id="img-${product.id}" data-src="${product.image.replace(/ /g, '%20')}" alt="${product.name}"
+                <img id="img-${product.id}" data-src="${encodeImgPath(product.image)}" alt="${product.name}"
                     class="w-full h-full object-cover opacity-0 transition-opacity duration-500 lazy-img"
                     loading="lazy"
                     onerror="handleImgError(this)">
@@ -547,7 +551,7 @@ function updateCartUI() {
         rows.push(`
             <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100" data-group-key="${key}">
                 <div class="flex items-center gap-3 flex-1">
-                    <img src="${(item.image || '').replace(/ /g, '%20')}" class="w-12 h-12 rounded object-cover">
+                    <img src="${encodeImgPath(item.image || '')}" class="w-12 h-12 rounded object-cover">
                     <div class="flex-1">
                         <h4 class="text-sm font-bold text-gray-800">${item.name} ${variant}</h4>
                         <span class="text-xs text-gray-500">R$ ${item.price.toFixed(2)} cada</span>

@@ -316,7 +316,7 @@
             }
 
             // Galeria
-            const enc = p => p.replace(/ /g, '%20');
+            const enc = p => p.split('/').map(s => encodeURIComponent(s).replace(/'/g, '%27')).join('/');
             const images = product.images || [product.image];
             document.getElementById('main-image').src = enc(images[0]);
             document.getElementById('main-image').alt = product.name;
