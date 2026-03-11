@@ -309,6 +309,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sec) setTimeout(() => sec.scrollIntoView({ behavior: 'smooth' }), 50);
     }
 
+    if (window.location.hash === '#cart') {
+        setTimeout(() => toggleCartModal(), 50);
+    }
+
     // Prefill dados salvos
     try {
         const saved = JSON.parse(localStorage.getItem('dolce_client_info'));
