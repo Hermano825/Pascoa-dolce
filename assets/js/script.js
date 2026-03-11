@@ -73,8 +73,11 @@ const products = [
         description: "Duas camadas de massa amanteigada e uma camada de recheio. Finalizado com cobertura de merengue suíço.",
         price: 179.00,
         category: "Bolos",
-        image: "./assets/images/produtos/Bolos/Bolo jesus.webp",
-        images: ["./assets/images/produtos/Bolos/Bolo jesus.webp"],
+        image: "./assets/images/produtos/Bolos/Bolo Jesus (1).webp",
+        images: [
+            "./assets/images/produtos/Bolos/Bolo Jesus (1).webp",
+            "./assets/images/produtos/Bolos/Bolo Jesus (2).webp"
+        ],
         variants: [
             { size: "10 fatias", price: 179.00 },
             { size: "20 fatias", price: 239.00 },
@@ -89,8 +92,8 @@ const products = [
         description: "Duas camadas de massa amanteigada e uma camada de recheio. Finalizado com amêndoas laminadas. Bolo envolto em acetato.",
         price: 199.00,
         category: "Bolos",
-        image: "./assets/images/produtos/Bolos/Bolo cristo ressucitou.webp",
-        images: ["./assets/images/produtos/Bolos/Bolo cristo ressucitou.webp"],
+        image: "./assets/images/produtos/Bolos/Bolo Cristo Ressuscitou.webp",
+        images: ["./assets/images/produtos/Bolos/Bolo Cristo Ressuscitou.webp"],
         variants: [
             { size: "10 fatias", price: 199.00 },
             { size: "20 fatias", price: 259.00 },
@@ -105,8 +108,8 @@ const products = [
         description: "Duas camadas de massa amanteigada e uma camada de recheio. Finalizado com cobertura de merengue suíço. Bolo envolto em acetato.",
         price: 179.00,
         category: "Bolos",
-        image: "./assets/images/produtos/Bolos/Bolo coelho pascoal.webp",
-        images: ["./assets/images/produtos/Bolos/Bolo coelho pascoal.webp"],
+        image: "./assets/images/produtos/Bolos/Bolo Coelho Pascoal.webp",
+        images: ["./assets/images/produtos/Bolos/Bolo Coelho Pascoal.webp"],
         variants: [
             { size: "10 fatias", price: 179.00 },
             { size: "20 fatias", price: 239.00 },
@@ -121,8 +124,11 @@ const products = [
         description: "Massa de chocolate com cobertura de chocolate belga. Bolo envolto em acetato. Serve de 8 a 10 fatias.",
         price: 79.90,
         category: "Bolos",
-        image: "./assets/images/produtos/Bolos/Bolo divino pascoa.webp",
-        images: ["./assets/images/produtos/Bolos/Bolo divino pascoa.webp"],
+        image: "./assets/images/produtos/Bolos/Bolo Divino Páscoa (1).webp",
+        images: [
+            "./assets/images/produtos/Bolos/Bolo Divino Páscoa (1).webp",
+            "./assets/images/produtos/Bolos/Bolo Divino Páscoa (2).webp"
+        ],
         checkoutId: "ID_BOLO_04"
     },
     {
@@ -131,8 +137,13 @@ const products = [
         description: "Sobremesa de 900g recheada com chocolate, brownie, marshmallow, massa amanteigada e creme de pistache.",
         price: 179.90,
         category: "Bolos",
-        image: "./assets/images/produtos/Bolos/Sobremesa pascoa.webp",
-        images: ["./assets/images/produtos/Bolos/Sobremesa pascoa.webp"],
+        image: "./assets/images/produtos/Bolos/Sobremesa páscoa 900g (1).webp",
+        images: [
+            "./assets/images/produtos/Bolos/Sobremesa páscoa 900g (1).webp",
+            "./assets/images/produtos/Bolos/Sobremesa páscoa 900g (2).webp",
+            "./assets/images/produtos/Bolos/Sobremesa páscoa 900g (3).webp",
+            "./assets/images/produtos/Bolos/Sobremesa páscoa 900g (4).webp"
+        ],
         checkoutId: "ID_BOLO_05"
     }
     // Novos produtos serão adicionados aqui
