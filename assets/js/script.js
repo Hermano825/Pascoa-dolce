@@ -785,10 +785,12 @@ function finalizarCompra() {
     } catch (_) {}
 
     const total = cart.reduce((a, i) => a + i.price, 0);
+    const couponDiscount = (window.appliedCoupon && window.appliedCoupon.pct) ? total * window.appliedCoupon.pct : 0;
+    const finalTotal = total - couponDiscount;
 
     // Meta Pixel
     if (typeof fbq !== 'undefined') {
-        fbq('track', 'InitiateCheckout', { content_ids: cart.map(i => i.id), value: total, currency: 'BRL', num_items: cart.length });
+        fbq('track', 'InitiateCheckout', { content_ids: cart.map(i => i.id), value: finalTotal, currency: 'BRL', num_items: cart.length });
     }
 
     // Mensagem WhatsApp
@@ -807,17 +809,21 @@ function finalizarCompra() {
     cart.forEach(item => {
         msg += `- ${item.name}${item.variantLabel ? ` (${item.variantLabel})` : ''}: R$ ${item.price.toFixed(2)}\n`;
     });
-    msg += `\n*Total: R$ ${total.toFixed(2)}*`;
+    if (couponDiscount > 0) {
+        msg += `\nSubtotal: R$ ${total.toFixed(2)}\n`;
+        msg += `Cupom (${window.appliedCoupon.code}): - R$ ${couponDiscount.toFixed(2)}\n`;
+    }
+    msg += `\n*Total: R$ ${finalTotal.toFixed(2)}*`;
 
     // Envia lead ao backend
     fetch('/api/lead.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cliente: { nome, cpf: formatCPF(cpfDigits), telefone: formatPhone(phoneDigits), cep: cepInput?.value, cidade, bairro, rua, numero, complemento, observacoes }, cart, total })
+        body: JSON.stringify({ cliente: { nome, cpf: formatCPF(cpfDigits), telefone: formatPhone(phoneDigits), cep: cepInput?.value, cidade, bairro, rua, numero, complemento, observacoes }, cart, total: finalTotal })
     }).catch(() => {});
 
     if (typeof fbq !== 'undefined') {
-        fbq('track', 'Purchase', { content_ids: cart.map(i => i.id), value: total, currency: 'BRL', num_items: cart.length });
+        fbq('track', 'Purchase', { content_ids: cart.map(i => i.id), value: finalTotal, currency: 'BRL', num_items: cart.length });
     }
 
     window.open(`https://wa.me/5585988884717?text=${encodeURIComponent(msg)}`, '_blank');
