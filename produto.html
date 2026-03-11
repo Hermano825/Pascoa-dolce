@@ -160,6 +160,12 @@
                     <div id="variant-options" class="flex flex-wrap gap-2"></div>
                 </div>
 
+                <!-- Recheio -->
+                <div id="filling-selector" class="mb-6 hidden">
+                    <h3 class="text-sm font-bold text-gray-700 mb-3">Escolha o recheio:</h3>
+                    <div id="filling-options" class="flex flex-wrap gap-2"></div>
+                </div>
+
                 <div class="mb-6">
                     <span class="text-4xl font-bold text-rose-900" id="product-price">R$ 0,00</span>
                 </div>
@@ -296,6 +302,19 @@
                 window.selectedVariantIndex = null;
             }
 
+            // Recheios
+            if (product.fillings && product.fillings.length > 0) {
+                document.getElementById('filling-selector').classList.remove('hidden');
+                document.getElementById('filling-options').innerHTML = product.fillings.map((f, i) => `
+                    <button onclick="selectFilling(${i})" data-filling-idx="${i}"
+                        class="filling-btn px-4 py-2 border-2 rounded-lg font-semibold transition ${i === 0 ? 'border-rose-700 bg-rose-50 text-rose-900' : 'border-gray-300 text-gray-700 hover:border-rose-600'}">
+                        ${f}
+                    </button>`).join('');
+                window.selectedFillingIndex = 0;
+            } else {
+                window.selectedFillingIndex = null;
+            }
+
             // Galeria
             const enc = p => p.replace(/ /g, '%20');
             const images = product.images || [product.image];
@@ -318,6 +337,19 @@
             const variant = product.variants[index];
             document.getElementById('product-price').textContent = `R$ ${variant.price.toFixed(2)}`;
             document.querySelectorAll('.variant-btn').forEach((btn, i) => {
+                btn.classList.toggle('border-rose-700', i === index);
+                btn.classList.toggle('bg-rose-50', i === index);
+                btn.classList.toggle('text-rose-900', i === index);
+                btn.classList.toggle('border-gray-300', i !== index);
+                btn.classList.toggle('text-gray-700', i !== index);
+            });
+        }
+
+        function selectFilling(index) {
+            const product = window.currentProduct;
+            if (!product?.fillings) return;
+            window.selectedFillingIndex = index;
+            document.querySelectorAll('.filling-btn').forEach((btn, i) => {
                 btn.classList.toggle('border-rose-700', i === index);
                 btn.classList.toggle('bg-rose-50', i === index);
                 btn.classList.toggle('text-rose-900', i === index);
@@ -357,12 +389,20 @@
             const qty = parseInt(document.getElementById('quantity').value) || 1;
 
             let itemToAdd = { ...product };
+            let variantLabel = '';
 
             if (window.selectedVariantIndex !== null && window.selectedVariantIndex !== undefined && product.variants) {
                 const variant = product.variants[window.selectedVariantIndex];
                 itemToAdd.price = variant.price;
-                itemToAdd.variantLabel = variant.size;
+                variantLabel = variant.size;
             }
+
+            if (window.selectedFillingIndex !== null && window.selectedFillingIndex !== undefined && product.fillings) {
+                const filling = product.fillings[window.selectedFillingIndex];
+                variantLabel = variantLabel ? `${variantLabel} • ${filling}` : filling;
+            }
+
+            if (variantLabel) itemToAdd.variantLabel = variantLabel;
 
             const groupKey = itemToAdd.variantLabel ? `${itemToAdd.id}-${itemToAdd.variantLabel}` : `${itemToAdd.id}`;
             for (let i = 0; i < qty; i++) cart.push({ ...itemToAdd });

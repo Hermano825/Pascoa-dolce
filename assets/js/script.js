@@ -66,6 +66,74 @@ const products = [
             "./assets/images/produtos/Ovos de páscoa/Ovo morango divino.webp"
         ],
         checkoutId: "ID_PASCOA_05"
+    },
+    {
+        id: 6,
+        name: "Bolo Jesus",
+        description: "Duas camadas de massa amanteigada e uma camada de recheio. Finalizado com cobertura de merengue suíço.",
+        price: 179.00,
+        category: "Bolos",
+        image: "./assets/images/produtos/Bolos/Bolo jesus.webp",
+        images: ["./assets/images/produtos/Bolos/Bolo jesus.webp"],
+        variants: [
+            { size: "10 fatias", price: 179.00 },
+            { size: "20 fatias", price: 239.00 },
+            { size: "30 fatias", price: 349.00 }
+        ],
+        fillings: ["Chocolate belga", "Doce de leite", "Doce de leite crocante"],
+        checkoutId: "ID_BOLO_01"
+    },
+    {
+        id: 7,
+        name: "Bolo Cristo Ressucitou",
+        description: "Duas camadas de massa amanteigada e uma camada de recheio. Finalizado com amêndoas laminadas. Bolo envolto em acetato.",
+        price: 199.00,
+        category: "Bolos",
+        image: "./assets/images/produtos/Bolos/Bolo cristo ressucitou.webp",
+        images: ["./assets/images/produtos/Bolos/Bolo cristo ressucitou.webp"],
+        variants: [
+            { size: "10 fatias", price: 199.00 },
+            { size: "20 fatias", price: 259.00 },
+            { size: "30 fatias", price: 369.00 }
+        ],
+        fillings: ["Chocolate belga", "Doce de leite", "Doce de leite crocante"],
+        checkoutId: "ID_BOLO_02"
+    },
+    {
+        id: 8,
+        name: "Bolo Coelho Pascoal",
+        description: "Duas camadas de massa amanteigada e uma camada de recheio. Finalizado com cobertura de merengue suíço. Bolo envolto em acetato.",
+        price: 179.00,
+        category: "Bolos",
+        image: "./assets/images/produtos/Bolos/Bolo coelho pascoal.webp",
+        images: ["./assets/images/produtos/Bolos/Bolo coelho pascoal.webp"],
+        variants: [
+            { size: "10 fatias", price: 179.00 },
+            { size: "20 fatias", price: 239.00 },
+            { size: "30 fatias", price: 349.00 }
+        ],
+        fillings: ["Chocolate belga", "Doce de leite", "Doce de leite crocante"],
+        checkoutId: "ID_BOLO_03"
+    },
+    {
+        id: 9,
+        name: "Bolo Divino Páscoa",
+        description: "Massa de chocolate com cobertura de chocolate belga. Bolo envolto em acetato. Serve de 8 a 10 fatias.",
+        price: 79.90,
+        category: "Bolos",
+        image: "./assets/images/produtos/Bolos/Bolo divino pascoa.webp",
+        images: ["./assets/images/produtos/Bolos/Bolo divino pascoa.webp"],
+        checkoutId: "ID_BOLO_04"
+    },
+    {
+        id: 10,
+        name: "Sobremesa Páscoa",
+        description: "Sobremesa de 900g recheada com chocolate, brownie, marshmallow, massa amanteigada e creme de pistache.",
+        price: 179.90,
+        category: "Bolos",
+        image: "./assets/images/produtos/Bolos/Sobremesa pascoa.webp",
+        images: ["./assets/images/produtos/Bolos/Sobremesa pascoa.webp"],
+        checkoutId: "ID_BOLO_05"
     }
     // Novos produtos serão adicionados aqui
 ];
@@ -227,7 +295,7 @@ function renderProducts(productsToRender = filteredProducts) {
                 <img id="img-${product.id}" data-src="${product.image.replace(/ /g, '%20')}" alt="${product.name}"
                     class="w-full h-full object-cover opacity-0 transition-opacity duration-500 lazy-img"
                     loading="lazy"
-                    onerror="this.closest('.product-card')?.remove()">
+                    onerror="handleImgError(this)">
                 <span class="absolute top-4 left-4 bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-wide text-rose-900 rounded-full shadow-sm">
                     ${product.category}
                 </span>
@@ -244,15 +312,22 @@ function renderProducts(productsToRender = filteredProducts) {
             <div class="p-6 flex flex-col flex-grow">
                 <div class="flex justify-between items-start mb-2">
                     <h4 class="text-lg font-bold text-gray-800 leading-tight">${product.name}</h4>
-                    <span class="text-rose-900 font-bold bg-rose-50 px-2 py-1 rounded whitespace-nowrap ml-2">R$ ${product.price.toFixed(2)}</span>
+                    <span class="text-rose-900 font-bold bg-rose-50 px-2 py-1 rounded whitespace-nowrap ml-2">${product.variants?.length ? `A partir de R$ ${Math.min(...product.variants.map(v => v.price)).toFixed(2)}` : `R$ ${product.price.toFixed(2)}`}</span>
                 </div>
                 <p class="text-gray-600 text-sm mb-6 line-clamp-2 flex-grow">${product.description}</p>
-                <button onclick="event.stopPropagation(); addToCart(${product.id})"
+                ${product.variants?.length
+                    ? `<button onclick="event.stopPropagation(); viewProduct(${product.id})"
+                    class="add-to-cart-btn w-full bg-gradient-to-r from-rose-700 to-rose-800 hover:from-rose-800 hover:to-rose-900 text-white font-medium py-3 min-h-[44px] rounded-lg flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer mt-auto active:scale-95 shadow-md hover:shadow-lg"
+                    aria-label="Escolher opções de ${product.name}">
+                    <i data-lucide="layers" width="18"></i>
+                    Escolher tamanho
+                </button>`
+                    : `<button onclick="event.stopPropagation(); addToCart(${product.id})"
                     class="add-to-cart-btn w-full bg-gradient-to-r from-rose-700 to-rose-800 hover:from-rose-800 hover:to-rose-900 text-white font-medium py-3 min-h-[44px] rounded-lg flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer mt-auto active:scale-95 shadow-md hover:shadow-lg"
                     aria-label="Adicionar ${product.name} ao carrinho">
                     <i data-lucide="plus" width="18"></i>
                     Adicionar
-                </button>
+                </button>`}
             </div>
         </div>
     `).join('');
@@ -263,6 +338,17 @@ function renderProducts(productsToRender = filteredProducts) {
 
 function toggleMenu() {
     document.getElementById('mobile-menu').classList.toggle('hidden');
+}
+
+function handleImgError(img) {
+    const wrapper = img.parentElement;
+    if (!wrapper) return;
+    wrapper.querySelector('.skeleton')?.remove();
+    img.style.display = 'none';
+    wrapper.style.display = 'flex';
+    wrapper.style.alignItems = 'center';
+    wrapper.style.justifyContent = 'center';
+    wrapper.insertAdjacentHTML('beforeend', '<span style="font-size:3rem;opacity:0.25">🎂</span>');
 }
 
 function generateSlug(name) {
@@ -353,6 +439,7 @@ function filterByCategory(category) {
 function addToCart(id) {
     const product = products.find(p => p.id === id);
     if (!product) return;
+    if (product.variants?.length) { viewProduct(id); return; }
     cart.push(product);
     saveCart();
 
