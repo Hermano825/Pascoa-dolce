@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Pedido - Dolce Divino</title>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <link rel="icon" type="image/png" href="./assets/images/logo.webp">
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1903050763983703');
+    fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Code -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body class="font-sans text-gray-800 bg-stone-50 min-h-screen">
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1903050763983703&ev=PageView&noscript=1"/></noscript>
+
+    <!-- NAV -->
+    <nav class="fixed w-full z-50 bg-gradient-to-r from-rose-50 via-white to-rose-50 shadow-xl border-b-2 border-rose-100">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="./assets/images/logo.webp" alt="Dolce Divino" class="h-14 md:h-16 w-auto nav-logo">
+            </a>
+            <div class="flex items-center gap-2 text-sm text-rose-900 font-medium">
+                <a href="index.html" class="flex items-center gap-1 hover:text-rose-700 transition">
+                    <i data-lucide="arrow-left" width="16"></i> Voltar ao cardápio
+                </a>
+            </div>
+        </div>
+        <!-- Steps -->
+        <div class="bg-rose-50 border-t border-rose-100 py-2">
+            <div class="container mx-auto px-4 flex items-center justify-center gap-3 text-xs font-semibold">
+                <a href="index.html" class="flex items-center gap-1.5 text-rose-400 hover:text-rose-600 transition">
+                    <span class="w-5 h-5 rounded-full bg-rose-200 text-rose-600 flex items-center justify-center text-xs font-bold">1</span>
+                    Carrinho
+                </a>
+                <i data-lucide="chevron-right" class="text-rose-300" width="14"></i>
+                <span class="flex items-center gap-1.5 text-rose-900">
+                    <span class="w-5 h-5 rounded-full bg-rose-700 text-white flex items-center justify-center text-xs font-bold">2</span>
+                    Finalizar Pedido
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="pt-36 pb-16 px-4">
+        <div class="container mx-auto max-w-5xl">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">Finalizar Pedido</h1>
+
+            <div class="grid md:grid-cols-[1fr_1.3fr] gap-8">
+
+                <!-- ESQUERDA: Resumo do pedido -->
+                <div class="md:sticky md:top-36 md:self-start">
+                    <div class="bg-white rounded-2xl shadow-xl border border-stone-100 overflow-hidden">
+                        <div class="bg-gradient-to-r from-rose-800 to-rose-700 text-white px-6 py-4 flex items-center gap-2">
+                            <i data-lucide="shopping-bag" width="20"></i>
+                            <h2 class="text-lg font-bold">Resumo do Pedido</h2>
+                        </div>
+
+                        <div id="checkout-summary" class="divide-y divide-stone-100 max-h-[420px] overflow-y-auto">
+                            <!-- preenchido por JS -->
+                        </div>
+
+                        <div class="px-6 py-4 bg-stone-50 border-t border-stone-200 space-y-2">
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span>Subtotal</span>
+                                <span id="checkout-subtotal">R$ 0,00</span>
+                            </div>
+                            <div class="flex justify-between text-lg font-bold text-gray-900">
+                                <span>Total</span>
+                                <span id="checkout-total" class="text-rose-800">R$ 0,00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="index.html" class="mt-4 flex items-center justify-center gap-2 text-sm text-rose-700 hover:text-rose-900 font-semibold transition py-3">
+                        <i data-lucide="pencil" width="16"></i>
+                        Editar carrinho
+                    </a>
+                </div>
+
+                <!-- DIREITA: Formulário -->
+                <div class="bg-white rounded-2xl shadow-xl border border-stone-100 p-6 md:p-8">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                        <i data-lucide="map-pin" class="text-rose-700" width="22"></i>
+                        Informações de Entrega
+                    </h2>
+
+                    <div class="space-y-4">
+                        <!-- Dados pessoais -->
+                        <div>
+                            <p class="text-xs font-bold text-rose-800 uppercase tracking-wide mb-3">Dados pessoais</p>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-600 mb-1">Nome completo *</label>
+                                    <input id="client-name" type="text" placeholder="Seu nome"
+                                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-stone-50 focus:bg-white transition" />
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-600 mb-1">CPF *</label>
+                                        <input id="client-cpf" type="text" placeholder="000.000.000-00" maxlength="14"
+                                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-stone-50 focus:bg-white transition" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-600 mb-1">Telefone *</label>
+                                        <input id="client-phone" type="text" placeholder="(00) 00000-0000" maxlength="15"
+                                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-stone-50 focus:bg-white transition" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Endereço -->
+                        <div class="pt-2">
+                            <p class="text-xs font-bold text-rose-800 uppercase tracking-wide mb-3">Endereço de entrega</p>
+                            <div class="space-y-3">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-600 mb-1">CEP *</label>
+                                        <input id="client-cep" type="text" placeholder="00000-000" maxlength="9"
+                                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-stone-50 focus:bg-white transition" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-600 mb-1">Cidade</label>
+                                        <input id="client-city" type="text" placeholder="Cidade/UF"
+                                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-stone-50 focus:bg-white transition" />
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-600 mb-1">Bairro *</label>
+                                        <input id="client-bairro" type="text" placeholder="Bairro"
+                                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-stone-50 focus:bg-white transition" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-600 mb-1">Rua *</label>
+                                        <input id="client-rua" type="text" placeholder="Rua / Avenida"
+                                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-stone-50 focus:bg-white transition" />
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-600 mb-1">Número *</label>
+                                        <input id="client-numero" type="text" placeholder="Nº"
+                                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-stone-50 focus:bg-white transition" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-600 mb-1">Complemento</label>
+                                        <input id="client-complemento" type="text" placeholder="Apto, bloco..."
+                                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-stone-50 focus:bg-white transition" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Observações -->
+                        <div class="pt-2">
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Observações do pedido</label>
+                            <textarea id="client-notes" rows="3"
+                                placeholder="Alergias, instruções especiais, ponto de referência..."
+                                class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-stone-50 focus:bg-white transition resize-none"></textarea>
+                        </div>
+
+                        <p class="text-[11px] text-gray-400 flex items-center gap-1">
+                            <i data-lucide="lock" width="12"></i>
+                            Seus dados são usados apenas para finalizar o pedido via WhatsApp.
+                        </p>
+
+                        <!-- Erro -->
+                        <p id="checkout-error" class="hidden text-red-600 text-sm font-semibold bg-red-50 px-4 py-3 rounded-xl border border-red-200"></p>
+
+                        <!-- Botão finalizar -->
+                        <button onclick="finalizarCompra()"
+                            class="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-3 text-base mt-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.558 4.14 1.535 5.874L.057 23.57a.75.75 0 0 0 .921.919l5.82-1.527A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.867 0-3.617-.5-5.127-1.373l-.367-.217-3.804.998.998-3.69-.237-.382A9.938 9.938 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+                            </svg>
+                            Finalizar Pedido via WhatsApp
+                        </button>
+
+                        <div class="text-center text-xs text-gray-400 flex items-center justify-center gap-1">
+                            <i data-lucide="shield-check" class="text-green-500" width="14"></i>
+                            Pedido 100% seguro — atendimento humanizado
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./assets/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCart();
+            lucide.createIcons();
+
+            if (cart.length === 0) {
+                window.location.href = 'index.html#produtos';
+                return;
+            }
+
+            renderCheckoutSummary();
+            prefillSavedData();
+            setupMasks();
+
+            if (typeof fbq !== 'undefined') {
+                const total = cart.reduce((a, i) => a + i.price, 0);
+                fbq('track', 'InitiateCheckout', {
+                    content_ids: cart.map(i => i.id),
+                    value: total,
+                    currency: 'BRL',
+                    num_items: cart.length
+                });
+            }
+        });
+
+        function renderCheckoutSummary() {
+            const container = document.getElementById('checkout-summary');
+            const totalEl = document.getElementById('checkout-total');
+            const subEl = document.getElementById('checkout-subtotal');
+
+            const groups = new Map();
+            cart.forEach(item => {
+                const key = item.variantLabel ? `${item.id}-${item.variantLabel}` : `${item.id}`;
+                const g = groups.get(key);
+                if (g) g.qty += 1;
+                else groups.set(key, { item, qty: 1 });
+            });
+
+            let total = 0;
+            let html = '';
+            groups.forEach(({ item, qty }) => {
+                const line = item.price * qty;
+                total += line;
+                const variant = item.variantLabel
+                    ? `<span class="text-xs text-rose-600 font-medium">${item.variantLabel}</span>` : '';
+                html += `
+                    <div class="flex items-center gap-3 px-5 py-4">
+                        <img src="${encodeImgPath(item.image || '')}"
+                            class="w-14 h-14 rounded-xl object-cover bg-stone-100 shrink-0 border border-stone-200"
+                            onerror="this.src='';this.className='w-14 h-14 rounded-xl bg-stone-100 shrink-0 flex items-center justify-center'"
+                        >
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-bold text-gray-800 leading-tight truncate">${item.name}</p>
+                            ${variant}
+                            <p class="text-xs text-gray-500 mt-0.5">R$ ${item.price.toFixed(2)} × ${qty}</p>
+                        </div>
+                        <span class="text-sm font-bold text-rose-800 shrink-0">R$ ${line.toFixed(2)}</span>
+                    </div>`;
+            });
+
+            container.innerHTML = html;
+            totalEl.textContent = `R$ ${total.toFixed(2)}`;
+            subEl.textContent = `R$ ${total.toFixed(2)}`;
+        }
+
+        function prefillSavedData() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('dolce_client_info'));
+                if (!saved) return;
+                const fill = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+                fill('client-name', saved.nome);
+                fill('client-cpf', saved.cpf);
+                fill('client-phone', saved.telefone);
+                fill('client-cep', saved.cep);
+                fill('client-city', saved.cidade);
+                fill('client-bairro', saved.bairro);
+                fill('client-rua', saved.rua);
+                fill('client-numero', saved.numero);
+                fill('client-complemento', saved.complemento);
+                fill('client-notes', saved.observacoes);
+            } catch (_) {}
+        }
+
+        function setupMasks() {
+            // CPF
+            const cpfEl = document.getElementById('client-cpf');
+            if (cpfEl) {
+                cpfEl.addEventListener('input', () => {
+                    const v = cpfEl.value.replace(/\D/g, '').slice(0, 11);
+                    let out = v;
+                    if (v.length > 9) out = v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+                    else if (v.length > 6) out = v.replace(/(\d{3})(\d{3})(\d{0,3})/, '$1.$2.$3');
+                    else if (v.length > 3) out = v.replace(/(\d{3})(\d{0,3})/, '$1.$2');
+                    cpfEl.value = out;
+                });
+            }
+            // Telefone
+            const phoneEl = document.getElementById('client-phone');
+            if (phoneEl) {
+                phoneEl.addEventListener('input', () => {
+                    const d = phoneEl.value.replace(/\D/g, '').slice(0, 11);
+                    let out = d;
+                    if (d.length >= 11) out = d.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+                    else if (d.length >= 10) out = d.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+                    else if (d.length >= 6) out = d.replace(/(\d{2})(\d{0,4})/, '($1) $2');
+                    else if (d.length >= 2) out = d.replace(/(\d{2})(\d{0,3})/, '($1) $2');
+                    phoneEl.value = out;
+                });
+            }
+            // CEP
+            const cepEl = document.getElementById('client-cep');
+            const cityEl = document.getElementById('client-city');
+            if (cepEl) {
+                cepEl.addEventListener('input', () => {
+                    const v = cepEl.value.replace(/\D/g, '').slice(0, 8);
+                    cepEl.value = v.length > 5 ? v.replace(/(\d{5})(\d{0,3})/, '$1-$2') : v;
+                });
+                cepEl.addEventListener('blur', async () => {
+                    const digits = cepEl.value.replace(/\D/g, '');
+                    if (digits.length !== 8) return;
+                    try {
+                        const res = await fetch(`https://viacep.com.br/ws/${digits}/json/`);
+                        const data = await res.json();
+                        if (!data.erro) {
+                            if (cityEl) cityEl.value = `${data.localidade}/${data.uf}`;
+                            const b = document.getElementById('client-bairro');
+                            if (b && data.bairro && !b.value.trim()) b.value = data.bairro;
+                            const r = document.getElementById('client-rua');
+                            if (r && data.logradouro && !r.value.trim()) r.value = data.logradouro;
+                        }
+                    } catch (_) {}
+                });
+            }
+        }
+    </script>
+</body>
+</html>
